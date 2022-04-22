@@ -15,8 +15,18 @@ public class Req {
     }
 
     public static Req of(String content) {
-        /* TODO parse a content */
-        return new Req(null, null, null, null);
+        String[] lines = content.split(System.lineSeparator());
+        String[] head = lines[0].split(" ");
+        String[] pooh = head[1].split("/");
+        String param = "";
+        if (pooh.length > 3) {
+            param = pooh[3];
+        }
+        if ("".equals(lines[lines.length - 2])) {
+            param = lines[lines.length - 1];
+        }
+        return new Req(head[0], pooh[1], pooh[2], param);
+
     }
 
     public String httpRequestType() {
@@ -34,4 +44,5 @@ public class Req {
     public String getParam() {
         return param;
     }
+
 }
